@@ -4,7 +4,6 @@ You can also challenge your opponent to finish the word in case you think it can
 
 Features: 
 - Challenge your opponent
-- Play with 2,3 or 4 players
 
 ![User experience](/app/userexperience.jpg)
 
