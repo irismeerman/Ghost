@@ -6,5 +6,5 @@ Features:
 - Challenge your opponent
 - Play with 2,3 or 4 players
 
-![User experience](/irismeerman/Ghost/blob/master/app/userexperience.jpg)
+![User experience](/app/userexperience.jpg)
 
