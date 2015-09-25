@@ -2,12 +2,12 @@
 
 - Player 
 
-variables:
+**variables:**
 
 name
 highscore
 
-methods:
+**methods:**
 
 getName(Int (1st or 2nd player)) - returns: String name
 
@@ -19,13 +19,13 @@ setScore(String player) - void
 
 - Game
 
-variables:
+**variables:**
 
 word
 
 dictionary
 
-methods:
+**methods:**
 
 getWord()	- returns: String word
 
@@ -37,11 +37,11 @@ checkIfIsWord() - returns: true or false
 
 - Settings
 
-variables:
+**variables:**
 
 language
 
-methods:
+**methods:**
 
 setLanguage(String language) - void
 
@@ -50,7 +50,7 @@ getLanguage()	- returns: String language
 
 - Highscores
 
-methods: 
+**methods: **
 
 sort() 	- returns: StringArray players
 
