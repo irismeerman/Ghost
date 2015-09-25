@@ -4,8 +4,9 @@
 
 **variables:**
 
-name
-highscore
+private name
+
+private highscore
 
 **methods:**
 
@@ -21,9 +22,9 @@ setScore(String player) - void
 
 **variables:**
 
-word
+private word
 
-dictionary
+private dictionary
 
 **methods:**
 
@@ -39,7 +40,7 @@ checkIfIsWord() - returns: true or false
 
 **variables:**
 
-language
+private language
 
 **methods:**
 
