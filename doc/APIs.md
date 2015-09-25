@@ -14,10 +14,9 @@ be able to handle widgets in layout
 
 - bundle 
 
-bundle and send data to another activity
-(might not be necessary since sharedPreferences is already in use)
+bundle and send data to another activity (might not be necessary since sharedPreferences is already in use)
 
 - a dictionary API; one Dutch, one English
-- 
+
 to check a words validity
 
