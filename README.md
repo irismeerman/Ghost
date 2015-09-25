@@ -8,4 +8,3 @@ Features:
 - the language and playernames will be saved in a SharedPreference object, and therefore maintain when reopening the app
 - a menubutton at the upper right corner of the app will lead to a settings menu in which the names and language can be set. This menubutton is accessible through the whole game.
 - Winning a game means 1 point added to the total amount of points for that player (name).
-
