@@ -42,6 +42,8 @@ checkIfIsWord() - returns: true or false
 
 private language
 
+![sketch](/app/f7.jpg)
+
 **methods:**
 
 setLanguage(String language) - void
