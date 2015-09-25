@@ -1,6 +1,7 @@
 # Classes
 
 - Player 
+
 variables:
 
 name
@@ -17,6 +18,7 @@ getScore(String player)	- returns: Int score
 setScore(String player) - void
 
 - Game
+
 variables:
 
 word
