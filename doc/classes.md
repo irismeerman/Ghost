@@ -42,8 +42,6 @@ checkIfIsWord() - returns: true or false
 
 private language
 
-![sketch](/app/f7.jpg)
-
 **methods:**
 
 setLanguage(String language) - void
@@ -57,5 +55,8 @@ getLanguage()	- returns: String language
 
 sort() 	- returns: StringArray players
 
+
+Een sketch, vooral meerwaarde vanwege de pijltjes:
+![sketch](/app/f7.jpg)
 
 
