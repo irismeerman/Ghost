@@ -51,7 +51,7 @@ getLanguage()	- returns: String language
 
 - Highscores
 
-**methods: **
+**methods:**
 
 sort() 	- returns: StringArray players
 
