@@ -6,7 +6,7 @@ used to save settings and the word)
 
 - hashmap
 
-To save playernames and their scores as key-value pairs
+to save playernames and their scores as key-value pairs
 
 - android.view
 
