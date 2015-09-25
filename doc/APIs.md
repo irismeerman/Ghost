@@ -2,7 +2,7 @@
 
 - android.preference (sharedPreferences)
 
-used to save settings and the word)
+used to save settings, the word and previously stored playernames
 
 - hashmap
 
