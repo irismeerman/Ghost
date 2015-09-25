@@ -2,7 +2,11 @@
 
 - android.preference (sharedPreferences)
 
-used to save settings, playernames and their scores and the word)
+used to save settings and the word)
+
+- hashmap
+
+To save playernames and their scores as key-value pairs
 
 - android.view
 
