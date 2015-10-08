@@ -56,4 +56,7 @@ getLanguage()	- returns: String language
 sort() 	- returns: StringArray players
 
 
+Een sketch, vooral meerwaarde vanwege de pijltjes:
+![sketch](/app/f7.jpg)
+
 
