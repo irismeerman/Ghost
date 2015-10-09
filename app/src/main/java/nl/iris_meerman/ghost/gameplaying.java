@@ -23,13 +23,24 @@ public class gameplaying extends AppCompatActivity implements View.OnClickListen
     String player, new_letter, letterGuess, wordGuess, winnerplayer;
     int winnerInt;
     boolean buttonClicked = false;
+    LanguageSettings ls;
     private Game game;
+    int sourcepath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_playing);
-        lexicon = new Lexicon(R.raw.english, this);
+        gameprefs = getSharedPreferences("gameprefs", Context.MODE_PRIVATE);
+
+        // select correct lexicon for game
+        String language = gameprefs.getString("language", "en");
+        if (language == "nl") {
+            lexicon = new Lexicon(R.raw.dutch, this);
+        } else {
+            lexicon = new Lexicon(R.raw.english, this);
+        }
+
         gameprefs = getSharedPreferences("gameprefs", Context.MODE_PRIVATE);
         game = new Game(lexicon);
         startGame();
@@ -41,7 +52,7 @@ public class gameplaying extends AppCompatActivity implements View.OnClickListen
 
     public void setWord(String wordGuess){
         TextView word_so_far = (TextView) findViewById(R.id.word_display);
-        word_so_far.setText(" " + wordGuess);
+        word_so_far.setText(" " + wordGuess.toUpperCase());
     }
 
     public void setTurnMessage(){
@@ -51,7 +62,7 @@ public class gameplaying extends AppCompatActivity implements View.OnClickListen
             player = gameprefs.getString("player2", "UNKNOWN PLAYER");
         }
         TextView whos_turn = (TextView) findViewById(R.id.whos_turn_display);
-        whos_turn.setText("It's " + player + "'s turn to choose the next letter");
+        whos_turn.setText(getResources().getString(R.string.beginzin) + " " + player + " " + getResources().getString(R.string.eindzin));
     }
 
     private String submitLetter(){

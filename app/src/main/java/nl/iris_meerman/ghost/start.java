@@ -21,18 +21,20 @@ public class start extends AppCompatActivity implements View.OnClickListener {
     SharedPreferences gameprefs;
     DatabaseHandler db;
     Iterator<String> it;
+    ArrayList<String> playerlist;
+    Bundle savedInstanceState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         gameprefs = getSharedPreferences("gameprefs", Context.MODE_PRIVATE);
-
+        db = new DatabaseHandler(this);
+        //db.onUpgrade(R.raw.gameDB, 0,0 );
     }
 
     public void onClick(View v){
         setPlayerNames();
-
         Intent intent = new Intent(this, gameplaying.class);
         startActivity(intent);
     }
@@ -49,24 +51,19 @@ public class start extends AppCompatActivity implements View.OnClickListener {
         editor.putString("player1", namePlayer1);
         editor.putString("player2", namePlayer2);
         editor.commit();
-        Log.d("test : ", "committed");
 
         playerInHighscores(namePlayer1);
         playerInHighscores(namePlayer2);
+        Log.d("test playerlist: ", String.valueOf(playerlist));
     }
 
     // als de speler(s) nog niet voorkomen in de highscoreslist,
     // worden ze toegevoegd.
     public void playerInHighscores(String name){
-        db = new DatabaseHandler(this);
-        ArrayList<String> playerlist = db.getAllPlayers();
+        playerlist = db.getAllPlayers();
         if (!playerlist.contains(name)){
             db.addPlayer(name);
-            Log.d("test name ", "added to db");
         }
-        //for (it = playerlist.iterator(); it.hasNext();  ){
-        //    String f = it.next();
-        //}
     }
 
     @Override
@@ -78,16 +75,20 @@ public class start extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, LanguageSettings.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    public void restart(){
+        Intent intent = new Intent(this, start.class);
+        finish();
+        startActivity(intent);
+    }
 }

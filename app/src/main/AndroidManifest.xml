@@ -16,6 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".gameplaying"
             android:label="Ghostgame">
@@ -24,6 +25,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
+
         <activity
             android:name=".Highscores"
             android:label="Highscores">
@@ -33,6 +35,14 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".LanguageSettings"
+            android:label="Language Settings">
+            <intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
