@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Ghost</string>
-    <string name="action_settings">Instellingen</string>
+    <string name="action_settings">Taal instellen</string>
+    <string name="choose_players">Kies spelers</string>
 
     <!-- Start -->
     <string name="player1"> Speler 1</string>
@@ -16,5 +17,8 @@
     <string name="woordbericht">Het woord was: </string>
     <string name="highscores">Topscores</string>
     <string name="nieuwspel">Nieuw spel</string>
+
+    <!-- select players -->
+    <string name="selectplayers">Selecteer speler(s)</string>
 
 </resources>

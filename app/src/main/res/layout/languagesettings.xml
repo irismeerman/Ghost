@@ -4,16 +4,6 @@
     android:layout_height="match_parent"
     android:background="#0e1238">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Select language / Selecteer taal:"
-        android:textSize="20dp"
-        android:textColor="#f4fffbf4"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal" />
-
     <Button
         android:layout_width="fill_parent"
         android:layout_marginTop="10dp"

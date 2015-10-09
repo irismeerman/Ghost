@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Ghost</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Language settings</string>
+    <string name="choose_players">Choose players</string>
 
     <!-- Start -->
     <string name="player1"> Player 1</string>
@@ -16,5 +17,8 @@
     <string name="woordbericht">The final word was: </string>
     <string name="highscores">Highscores</string>
     <string name="nieuwspel">New game</string>
+
+    <!-- select players -->
+    <string name="selectplayers">Select player(s)</string>
 
 </resources>

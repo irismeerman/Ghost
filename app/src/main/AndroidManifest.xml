@@ -19,7 +19,7 @@
 
         <activity
             android:name=".gameplaying"
-            android:label="Ghostgame">
+            android:label="Ghost">
         <intent-filter>
             <action android:name="android.intent.action.DEFAULT" />
             <category android:name="android.intent.category.LAUNCHER" />
@@ -28,7 +28,7 @@
 
         <activity
             android:name=".Highscores"
-            android:label="Highscores">
+            android:label="@string/highscores">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -37,7 +37,16 @@
 
         <activity
             android:name=".LanguageSettings"
-            android:label="Language Settings">
+            android:label="@string/action_settings">
+            <intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ChoosePlayers"
+            android:label="@string/choose_players">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />

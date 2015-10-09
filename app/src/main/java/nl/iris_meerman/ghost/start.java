@@ -30,7 +30,6 @@ public class start extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_start);
         gameprefs = getSharedPreferences("gameprefs", Context.MODE_PRIVATE);
         db = new DatabaseHandler(this);
-        //db.onUpgrade(R.raw.gameDB, 0,0 );
     }
 
     public void onClick(View v){
@@ -83,12 +82,18 @@ public class start extends AppCompatActivity implements View.OnClickListener {
             startActivity(intent);
             return true;
         }
+
+        if (id == R.id.choose_players){
+            Intent intent = new Intent(this, ChoosePlayers.class);
+            startActivity(intent);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
-    public void restart(){
-        Intent intent = new Intent(this, start.class);
-        finish();
-        startActivity(intent);
-    }
+    //public void restart(){
+     //   Intent intent = new Intent(this, start.class);
+     //   finish();
+     //   startActivity(intent);
+   // }
 }
