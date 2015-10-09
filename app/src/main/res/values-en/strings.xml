@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Ghost</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Start -->
+    <string name="player1"> Player 1</string>
+    <string name="player2"> Player 2</string>
+
+    <!-- gameplaying -->
+    <string name="beginzin">It\'s </string>
+    <string name="eindzin">\'s turn!</string>
+    <string name="Stuur">Submit</string>
+
+    <!-- winner / highscores -->
+    <string name="gewonnen"> has won!</string>
+    <string name="woordbericht">The final word was: </string>
+    <string name="highscores">Highscores</string>
+    <string name="nieuwspel">New game</string>
+
+</resources>

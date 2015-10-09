@@ -1,0 +1,73 @@
+package nl.iris_meerman.ghost;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+
+import java.util.Locale;
+
+/**
+ * Created by iris on 9-10-15.
+ */
+public class LanguageSettings extends AppCompatActivity implements View.OnClickListener {
+
+    Context context;
+    String lexiconLanguage;
+    start start;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.languagesettings);
+
+    }
+
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.nederlands_button: {
+                Locale locale = new Locale("nl");
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                changeLanguage("nl");
+                getResources().updateConfiguration(config, null);
+
+                Intent intent = new Intent(this, start.class);
+                finish();
+                startActivity(intent);
+
+                break;
+            }
+            case R.id.english_button: {
+                Locale locale = new Locale("en");
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                changeLanguage("en");
+                getResources().updateConfiguration(config, null);
+                Log.d("test resources: ", "resources updated");
+
+                Intent intent = new Intent(this, start.class);
+                finish();
+                startActivity(intent);
+
+                break;
+            }
+        }
+    }
+
+    public void changeLanguage(String lang){
+        SharedPreferences gameprefs = getSharedPreferences("gameprefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = gameprefs.edit();
+        editor.putString("language", lang);
+        editor.commit();
+
+    }
+
+
+}
