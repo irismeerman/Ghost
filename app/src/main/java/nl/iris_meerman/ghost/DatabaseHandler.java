@@ -86,13 +86,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // if a given playername does not exist, you can call addplayer.
     public ArrayList<String> getAllPlayers(){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_SCORE;
+        String query = "SELECT * FROM " + TABLE_SCORE + " ORDER BY " + KEY_NAME;
         Cursor c = db.rawQuery(query, null);
         ArrayList<String> players = new ArrayList<>();
         if (c.moveToFirst()) {
             while (!c.isAfterLast()) {
                 String name = c.getString(c.getColumnIndex(KEY_NAME));
-                //String player = new Player(name, id, gamesPlayed, gamesWon, livesLost);
                 players.add(name);
                 c.moveToNext();
             }

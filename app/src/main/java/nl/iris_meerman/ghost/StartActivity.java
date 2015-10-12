@@ -14,7 +14,7 @@ import android.widget.EditText;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class start extends AppCompatActivity implements View.OnClickListener {
+public class StartActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText ePlayer1, ePlayer2;
     String namePlayer1, namePlayer2;
@@ -22,31 +22,37 @@ public class start extends AppCompatActivity implements View.OnClickListener {
     DatabaseHandler db;
     Iterator<String> it;
     ArrayList<String> playerlist;
-    Bundle savedInstanceState;
+    Context context;
+    SharedPreferences.Editor editor;
+    public static final String sp = "gameprefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        gameprefs = getSharedPreferences("gameprefs", Context.MODE_PRIVATE);
+        gameprefs = getSharedPreferences(sp, Context.MODE_PRIVATE);
         db = new DatabaseHandler(this);
+        editor = gameprefs.edit();
+        ePlayer1 = (EditText) findViewById(R.id.player1);
+        ePlayer2 = (EditText) findViewById(R.id.player2);
+
     }
 
     public void onClick(View v){
         setPlayerNames();
-        Intent intent = new Intent(this, gameplaying.class);
+        Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }
 
     public void setPlayerNames(){
         Log.d("test: ", "setplayernames");
-        ePlayer1 = (EditText) findViewById(R.id.player1);
-        ePlayer2 = (EditText) findViewById(R.id.player2);
+        //ePlayer1 = (EditText) findViewById(R.id.player1);
+        //ePlayer2 = (EditText) findViewById(R.id.player2);
         namePlayer1 = ePlayer1.getText().toString();
         Log.d("test player1 name: ", namePlayer1);
         namePlayer2 = ePlayer2.getText().toString();
 
-        SharedPreferences.Editor editor = gameprefs.edit();
+        //editor = gameprefs.edit();
         editor.putString("player1", namePlayer1);
         editor.putString("player2", namePlayer2);
         editor.commit();
@@ -74,15 +80,12 @@ public class start extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
-
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, LanguageSettings.class);
             startActivity(intent);
             return true;
         }
-
         if (id == R.id.choose_players){
             Intent intent = new Intent(this, ChoosePlayers.class);
             startActivity(intent);
@@ -91,9 +94,31 @@ public class start extends AppCompatActivity implements View.OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
-    //public void restart(){
-     //   Intent intent = new Intent(this, start.class);
-     //   finish();
-     //   startActivity(intent);
-   // }
+    public void onRestart(){
+        super.onRestart();
+        putChosenName();
+    }
+    public void onResume(){
+        super.onResume();
+        putChosenName();
+    }
+
+    public void putChosenName(){
+        //editor = gameprefs.edit();
+        //SharedPreferences gameprefs = getSharedPreferences("gameprefs", Context.MODE_PRIVATE);
+        //SharedPreferences.Editor editor = gameprefs.edit();
+        //if (gameprefs.contains("player1")){
+        //EditText ePlayer1 = (EditText) findViewById(R.id.player1);
+        String playerName = gameprefs.getString("player1", "");
+        ePlayer1 = (EditText) findViewById(R.id.player1);
+        ePlayer1.setText(playerName, EditText.BufferType.EDITABLE);
+        //editor.putString("player1", playerselected);
+
+        //} else if (!gameprefs.contains("player2")) {
+        //EditText ePlayer2 = (EditText) findViewById(R.id.player2);
+        //ePlayer2.setText(playerselected, EditText.BufferType.EDITABLE);
+        //editor.putString("player2", playerselected);
+        //}
+        //editor.commit();
+    }
 }

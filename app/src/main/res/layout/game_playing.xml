@@ -37,6 +37,8 @@
             android:layout_margin="10dp"
             android:id="@+id/new_letter"
             android:textColor="#fffefa"
+            android:maxLength="1"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:hint=" Letter"
             android:background="#6ebbbed4"
              />

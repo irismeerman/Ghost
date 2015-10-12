@@ -15,7 +15,7 @@ import android.widget.TextView;
 import java.io.File;
 import java.net.URL;
 
-public class gameplaying extends AppCompatActivity implements View.OnClickListener {
+public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     Lexicon lexicon;
     SharedPreferences gameprefs;
@@ -85,9 +85,10 @@ public class gameplaying extends AppCompatActivity implements View.OnClickListen
                 else {
                     winnerplayer = getWinnerName();
                     Log.d("test winner: ", winnerplayer);
-                    Intent intent = new Intent(this, Highscores.class);
+                    Intent intent = new Intent(this, GameOverActivity.class);
                     intent.putExtra("winnername", winnerplayer);
                     intent.putExtra("finalword", wordGuess);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
                 break;

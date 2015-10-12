@@ -21,6 +21,7 @@
         android:id="@+id/player1"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         android:background="#33b7b7ba"
         android:textColor="#fffdfe"
         android:hint="@string/player1" />
@@ -33,6 +34,7 @@
         android:ems="10"
         android:id="@+id/player2"
         android:layout_below="@+id/player1"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         android:layout_centerHorizontal="true"
         android:background="#33b7b7ba"
         android:textColor="#fffdfe"

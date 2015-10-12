@@ -19,6 +19,7 @@ public class ChoosePlayers extends AppCompatActivity implements View.OnClickList
 
     DatabaseHandler db;
     Context context;
+    StartActivity startobj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,30 +41,32 @@ public class ChoosePlayers extends AppCompatActivity implements View.OnClickList
                 String playerselected = String.valueOf(objectplayer);//As you are using Default String Adapter
                 Toast.makeText(getBaseContext(), playerselected, Toast.LENGTH_SHORT).show();
 
+                //Intent intent = new Intent(ChoosePlayers.this, StartActivity.class);
+                //intent.putExtra("playerchosen", playerselected);
+                //startActivity(intent);
+
                 SharedPreferences gameprefs = getSharedPreferences("gameprefs", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = gameprefs.edit();
-
-                if (gameprefs.getString("player1", "").isEmpty()){
-                    //EditText ePlayer1 = (EditText) findViewById(R.id.player1);
-                    //ePlayer1.setText(playerselected, EditText.BufferType.EDITABLE);
+                if (!gameprefs.contains("player1")) {
                     editor.putString("player1", playerselected);
-                }
-                else if (gameprefs.getString("player2", "").isEmpty()){
-                    //EditText ePlayer2 = (EditText) findViewById(R.id.player2);
-                    //ePlayer2.setText(playerselected, EditText.BufferType.EDITABLE);
+                } else if (!gameprefs.contains("player2")){
                     editor.putString("player2", playerselected);
                 }
                 editor.commit();
-                Log.d("test with setting names", "whoop");
-                Intent intent = new Intent(ChoosePlayers.this, start.class);
-                //intent.putExtra("playerchosen", playerselected);
-                startActivity(intent);
+                finish();
+                //startActivity(intent);
+                //startobj = new StartActivity();
+                //startobj.putChosenName(playerselected);
+
+                //EditText ePlayer1 = (EditText) findViewById(R.id.player1);
+                //ePlayer1.setText(playerselected);
+
+                //startobj.putChosenName();
             }
         });
     }
 
     @Override
     public void onClick(View v) {
-
     }
 }

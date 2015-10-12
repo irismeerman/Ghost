@@ -18,7 +18,7 @@ public class LanguageSettings extends AppCompatActivity implements View.OnClickL
 
     Context context;
     String lexiconLanguage;
-    start start;
+    StartActivity start;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +45,7 @@ public class LanguageSettings extends AppCompatActivity implements View.OnClickL
         config.locale = locale;
         getResources().updateConfiguration(config, null);
 
-        Intent intent = new Intent(this, start.class);
+        Intent intent = new Intent(this, StartActivity.class);
         finish();
         startActivity(intent);
 

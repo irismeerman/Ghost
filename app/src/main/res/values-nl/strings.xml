@@ -7,7 +7,7 @@
     <string name="player1"> Speler 1</string>
     <string name="player2"> Speler 2</string>
 
-    <!-- gameplaying -->
+    <!-- Game activity -->
     <string name="beginzin"></string>
     <string name="eindzin">is aan de beurt!</string>
     <string name="Stuur">Verstuur</string>

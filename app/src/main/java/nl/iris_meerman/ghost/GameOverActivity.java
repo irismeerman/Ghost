@@ -20,7 +20,7 @@ import java.util.Scanner;
 /**
  * Created by iris on 7-10-15.
  */
-public class Highscores extends AppCompatActivity {
+public class GameOverActivity extends AppCompatActivity {
     String winner, finalword;
     int newScore;
     SharedPreferences highscoresprefs;
@@ -66,7 +66,10 @@ public class Highscores extends AppCompatActivity {
     }
 
     public void clickNewGame(View v){
-        Intent intent = new Intent(this, start.class);
+        Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
+    }
+
+    public void onBackPressed(){
     }
 }
