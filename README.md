@@ -8,4 +8,4 @@ Ghost woord spel. Hoe werkt het?
 
 Daarnaast:
 - Je kunt voor het begin van het spel de taal veranderen (nl of en) via het 'language settings' / 'taal instellen' menu.
-- Het idee is dat je via dat menu ook een eerder gebruikte speler kunt selecteren, echter, dat is nog onder constructie.
+- Je kunt ook een eerder geselecteerde speler kiezen uit het menu via 'kies speler'
