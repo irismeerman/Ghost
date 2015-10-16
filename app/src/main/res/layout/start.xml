@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="200dp"
         android:id="@+id/imageView"
-        android:src="@drawable/design" />
+        android:src="@drawable/ghost" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -44,12 +44,12 @@
         android:layout_width="120dp"
         android:layout_height="60dp"
         android:scaleType="fitXY"
-        android:onClick="onClick"
+        android:onClick="startButton"
         android:id="@+id/imageButton"
         android:layout_marginTop="30dp"
         android:background="@null"
         android:src="@drawable/startghost"
         android:layout_below="@+id/player2"
-        android:layout_centerHorizontal="true"
-       />
+        android:layout_centerHorizontal="true"/>
+
 </RelativeLayout>

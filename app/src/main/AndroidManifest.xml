@@ -38,8 +38,8 @@
         </activity>
 
         <activity
-            android:name=".LanguageSettings"
-            android:label="@string/action_settings"
+            android:name=".SelectPlayerActivity"
+            android:label=""
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
@@ -48,14 +48,15 @@
         </activity>
 
         <activity
-            android:name=".ChoosePlayers"
-            android:label="@string/choose_players"
+            android:name=".SelectLanguageActivity"
+            android:label=""
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

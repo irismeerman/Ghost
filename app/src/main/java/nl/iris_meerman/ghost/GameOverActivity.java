@@ -1,75 +1,72 @@
 package nl.iris_meerman.ghost;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-/**
- * Created by iris on 7-10-15.
+/* GameOverActivity.java
+ * This activity is called when the game has ended. It displays the layout with the final word, winner,
+ * list of highscores and a button with which you can start a new game.
  */
 public class GameOverActivity extends AppCompatActivity {
-    String winner, finalword;
-    int newScore;
-    SharedPreferences highscoresprefs;
-    protected ListView highscoreslist;
-    Context context;
+    String winner, finalWord;
+    protected ListView highscoresList;
     DatabaseHandler db;
 
+    // 'onCreate' makes sure that the layout is loaded and retrieves the winner and the
+    // word and displayes the highscorelist.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.highscores);
+        setContentView(R.layout.gameover);
 
         Bundle extras = getIntent().getExtras();
         winner = extras.getString("winnername");
-        finalword = extras.getString("finalword");
+        finalWord = extras.getString("finalword");
 
-        setWinnerMessage(winner, finalword);
+        setMessage(winner, finalWord);
         updateDBHighscoreList();
         displayHighscores();
     }
 
-    public void setWinnerMessage(String winner, String finalword){
+    // 'setMessage' displays a nice message for the winner, repeats the word
+    // and announces the highscorelist.
+    public void setMessage(String winner, String finalword){
         TextView message = (TextView) findViewById(R.id.winner_message);
         message.setText(winner + " " + getResources().getString(R.string.gewonnen) + "\n" + getResources().getString(R.string.woordbericht)
-                + " " + finalword.toUpperCase() + "\n" + getResources().getString(R.string.highscores));
+                + " " + finalword.toUpperCase() + "\n\n" + getResources().getString(R.string.highscores)+ ":");
     }
 
+    // 'updateDBHighscoreList' updates the database by adding the score to the winner.
     public void updateDBHighscoreList(){
-        // http://stackoverflow.com/questions/24358091/sqlite-or-sharedpreferences-for-high-scores
         db = new DatabaseHandler(this);
         db.addScore(winner);
     }
 
+    // 'displayHighscores' retrieves the whole list of players and their scores from the
+    // database, and displays it by using an array adapter.
     public void displayHighscores(){
-        highscoreslist = (ListView) findViewById(R.id.highscoreslist);
+        highscoresList = (ListView) findViewById(R.id.highscoreslist);
         ArrayList<String> results = db.sortHighscores();
-        //CursorAdapter cursorAdapter =
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getApplicationContext(),
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getApplicationContext(),
                 android.R.layout.simple_list_item_activated_1, results);
-
-        highscoreslist.setAdapter(adapter);
+        highscoresList.setAdapter(adapter);
     }
 
+    // 'clickNewGame' makes sure that the user is send to the start activity if he presses
+    // the button
     public void clickNewGame(View v){
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
     }
 
+    // 'onBackPressed' makes sure that the back press button on the phone does not respond,
+    // this way the user is not able to return to the game, while it was finished.
     public void onBackPressed(){
     }
 }

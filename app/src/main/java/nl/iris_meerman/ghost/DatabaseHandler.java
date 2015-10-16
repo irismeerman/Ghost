@@ -5,87 +5,56 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.jar.Attributes;
 
+/* DatabaseHandler.java
+ * This DatabaseHandler class communicates with the SQLite database in which the players
+ * and their scores are saved. In this class, players can be added, a list of all players
+ * can be retrieved, scores can be updated, and all players with their scores can be retrieved.
+ */
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-    // All Static variables
-    // Database Version
     private static final int DATABASE_VERSION = 1;
-
-    // Database Name
     private static final String DATABASE_NAME = "gameDB";
-
-    // Table name
     private static final String TABLE_SCORE = "highscores";
-
     // Score Table Columns names
     private static final String KEY_ID_SCORE = "_id";
     private static final String KEY_NAME = "name";
     private static final String KEY_SCORE = "score_value";
 
-    // class variables
-    String scoreRetrieved;
+    String oldScore;
+    SQLiteDatabase db;
+    String cursorName, cursorScore, nameAndScore;
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    // Creating Tables
+    // 'onCreate' creates the table with columns: id, playername and score
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.d("test: ", "onCreate database");
         String CREATE_SCORE_TABLE = "CREATE TABLE " + TABLE_SCORE + " ("
                 + KEY_ID_SCORE + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + KEY_NAME + " VARCHAR, "
                 + KEY_SCORE + " INTEGER)";
-        Log.d("test query: ", CREATE_SCORE_TABLE);
         db.execSQL(CREATE_SCORE_TABLE);
     }
 
-    // Upgrading database
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SCORE);
-        // Create tables again
-        onCreate(db);
-    }
-
-    // Adding new score to winner
-    public void addScore(String name) {
-
+    // 'addPlayer' adds a given (via input from the user) playername with score=0 to the database
+    public void addPlayer(String name){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        // select the right cell: the key_score cell belonging to 'name'
-        String query = "SELECT " + KEY_SCORE + " FROM " + TABLE_SCORE + " WHERE " +  KEY_NAME + "= '" + name + "' ";
-        Log.d("test query: ", query);
-        Cursor cursor = db.rawQuery(query,null );
-
-        if (cursor.moveToFirst()) {
-            scoreRetrieved = cursor.getString( cursor.getColumnIndex(KEY_SCORE));
-            Log.d("test old score: ", String.valueOf(scoreRetrieved));
-        }
-        // add 1
-        int newScore = Integer.parseInt(scoreRetrieved)  + 1;
-        Log.d("test new score: ", String.valueOf(newScore));
-        values.put(KEY_SCORE, newScore);
-        // put newScore in Key_score where keyname = name
-        String newQuery = KEY_NAME + "='"+name+"'";
-        db.update(TABLE_SCORE, values, newQuery, null);
-
+        values.put(KEY_NAME, name);
+        values.put(KEY_SCORE, 0);
+        db.insert(TABLE_SCORE, null, values);
         db.close();
-        cursor.close();
     }
 
-    // Get all players returns an arraylist of strings of playernames
-    // if a given playername does not exist, you can call addplayer.
+    // 'getAllPlayers' returns an arraylist of all playernames in the database
+    // (ordered alphabetically). This is used for selecting a previously used
+    // playername for the game.
     public ArrayList<String> getAllPlayers(){
-        SQLiteDatabase db = this.getWritableDatabase();
+        db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_SCORE + " ORDER BY " + KEY_NAME;
         Cursor c = db.rawQuery(query, null);
         ArrayList<String> players = new ArrayList<>();
@@ -100,60 +69,48 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return players;
     }
 
-    // this function adds a new playername with score=0 to the database
-    public void addPlayer(String name){
-        SQLiteDatabase db = this.getWritableDatabase();
+    // 'addScore' adds 1 to the score in the database of the given playername (the winner).
+    public void addScore(String name) {
+        db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, name);
-        values.put(KEY_SCORE, 0);
-        db.insert(TABLE_SCORE, null, values);
+        // retrieve old score
+        String getScoreQuery = "SELECT " + KEY_SCORE + " FROM " + TABLE_SCORE + " WHERE " +  KEY_NAME + "= '" + name + "' ";
+        Cursor cursor = db.rawQuery(getScoreQuery,null);
+        if (cursor.moveToFirst()) {
+            oldScore = cursor.getString( cursor.getColumnIndex(KEY_SCORE));
+        }
+        // save new score
+        int newScore = Integer.parseInt(oldScore)  + 1;
+        values.put(KEY_SCORE, newScore);
+        String setScoreQuery = KEY_NAME + "='"+name+"'";
+        db.update(TABLE_SCORE, values, setScoreQuery, null);
+
         db.close();
+        cursor.close();
     }
 
+    // 'sortHighscores' returns an arraylist of all playernames ever used in the game and their score,
+    // sorted based on score. This method is used for displaying the highscore.
     public ArrayList<String> sortHighscores(){
-        SQLiteDatabase db = this.getWritableDatabase();
+        db = this.getWritableDatabase();
         String sortQuery = "SELECT * FROM " + TABLE_SCORE + " ORDER BY " + KEY_SCORE + " DESC";
         Cursor cursorSorted = db.rawQuery(sortQuery, null);
-        //Log.d("test cursorsorted: ", String.valueOf(cursorSorted));
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> highscoreList = new ArrayList<>();
 
         if (cursorSorted.moveToFirst()){
             while (!cursorSorted.isAfterLast()) {
-                String cursorName = cursorSorted.getString(cursorSorted.getColumnIndex(KEY_NAME));
-                String cursorScore = cursorSorted.getString(cursorSorted.getColumnIndex(KEY_SCORE));
-                String wholeEntry = cursorName + " " + cursorScore;
-                list.add(wholeEntry);
+                cursorName = cursorSorted.getString(cursorSorted.getColumnIndex(KEY_NAME));
+                cursorScore = cursorSorted.getString(cursorSorted.getColumnIndex(KEY_SCORE));
+                nameAndScore = cursorName + " - " + cursorScore;
+                highscoreList.add(nameAndScore);
                 cursorSorted.moveToNext();
             }
         }
-        //String[] asColumnsToReturn = new String[] {KEY_ID_SCORE, KEY_NAME, KEY_SCORE};
-        return list;
+        return highscoreList;
     }
 
-    // Getting All Scores
-    public String[] getAllScores() {
-
-        // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_SCORE;
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        // looping through all rows and adding to list
-        int i = 0;
-
-        String[] data = new String[cursor.getCount()];
-
-        while (cursor.moveToNext()) {
-
-            data[i] = cursor.getString(1);
-
-            i = i++;
-
-        }
-        cursor.close();
-        db.close();
-        // return score array
-        return data;
+    // 'onUpgrade' is not used, but necessary to let the DatabaseHandler class work.
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 }
